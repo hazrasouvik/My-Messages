@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "https://mean-app-33.herokuapp.com/api"
+  //apiUrl: "https://localhost:3000/api"
 };
 
 /*

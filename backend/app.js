@@ -31,7 +31,7 @@ app.use(bodyParser.json()); //Parses the HTTP request body into a JSON object fo
 // app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); //Parses the URL encoded data
 // app.use(express.urlencoded());
-app.use("/images", express.static(path.join("backend/images")));
+app.use("/images", express.static(path.join(__dirname, "backend/images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -42,5 +42,6 @@ next();
 
 app.use("/api/posts", postRoutes);
 app.use("/api/user", userRoutes);
+
 
 module.exports = app; //To export something, this also exports the middleware used here
