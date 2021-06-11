@@ -8,6 +8,12 @@ const userRoutes = require('./routes/user');
 
 const app = express();
 
+app.use("/", express.static(path.join(__dirname, "../dist/mean-course")));
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "../dist/mean-course/index.html"));
+});
+
 mongoose.connect("mongodb+srv://max:" + process.env.MONGO_ATLAS_PW + "@cluster0.trckj.mongodb.net/node-angular?retryWrites=true&w=majority") //nodemon.js has the environment variables for Node
 .then(() => {
   console.log('Connected to database!')
