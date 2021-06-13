@@ -13,9 +13,15 @@ const server = http.createServer(app); // To link the express app with the node 
 server.listen(port);
 */
 
-const app = require("./backend/app");
+const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
+//const fs = require("fs");
+
+/*const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};*/
 
 const normalizePort = val => {
   var port = parseInt(val, 10);

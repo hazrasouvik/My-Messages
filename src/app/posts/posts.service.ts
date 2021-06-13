@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Post } from './post.model';
 
-const BACKEND_URL = environment.apiUrl + "/posts" // Accessing through environment variables
+const BACKEND_URL = environment.apiUrl + "/posts/" // Accessing through environment variables
 
 @Injectable({ providedIn: 'root'})
 export class PostsService {
@@ -41,7 +41,7 @@ return this.postsUpdated.asObservable();
 }
 
 getPost(id: string) {
-  return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string}>(BACKEND_URL + "/" + id);
+  return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string}>(BACKEND_URL + id);
 }
 
 addPost(title: string, content: string, image: File) {
@@ -72,13 +72,13 @@ updatePost(id: string, title: string, content: string, image: File | string) {
       creator: null
     }
   }
-  this.http.put(BACKEND_URL + "/" + id, postData)
+  this.http.put(BACKEND_URL + id, postData)
   .subscribe(response => {
     this.router.navigate(["/"]);
   });
 }
 
 deletePost(postId: string){
-  return this.http.delete(BACKEND_URL + "/" + postId);
+  return this.http.delete(BACKEND_URL + postId);
 }
 }

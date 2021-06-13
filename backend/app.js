@@ -8,12 +8,6 @@ const userRoutes = require('./routes/user');
 
 const app = express();
 
-app.use("/", express.static(path.join(__dirname, "../dist/mean-course")));
-
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "../dist/mean-course/index.html"));
-});
-
 mongoose.connect("mongodb+srv://max:" + process.env.MONGO_ATLAS_PW + "@cluster0.trckj.mongodb.net/node-angular?retryWrites=true&w=majority") //nodemon.js has the environment variables for Node
 .then(() => {
   console.log('Connected to database!')
@@ -31,7 +25,8 @@ app.use(bodyParser.json()); //Parses the HTTP request body into a JSON object fo
 // app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); //Parses the URL encoded data
 // app.use(express.urlencoded());
-app.use("/images", express.static(path.join(__dirname, "backend/images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -42,6 +37,8 @@ next();
 
 app.use("/api/posts", postRoutes);
 app.use("/api/user", userRoutes);
-
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular", "index.html"));
+});
 
 module.exports = app; //To export something, this also exports the middleware used here
